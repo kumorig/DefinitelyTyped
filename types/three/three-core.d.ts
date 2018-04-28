@@ -2004,7 +2004,7 @@ export class AmbientLight extends Light {
 }
 
 /**
- * Affects objects using MeshLambertMaterial or MeshPhongMaterial.
+ * Affects objects using {@link MeshLambertMaterial} or {@link MeshPhongMaterial} or {@link MeshToonMaterial}.
  *
  * @example
  * // White directional light at half intensity shining from the top.
@@ -2044,7 +2044,7 @@ export class HemisphereLight extends Light {
 }
 
 /**
- * Affects objects using {@link MeshLambertMaterial} or {@link MeshPhongMaterial}.
+ * Affects objects using {@link MeshLambertMaterial} or {@link MeshPhongMaterial} or {@link MeshToonMaterial}.
  *
  * @example
  * var light = new THREE.PointLight( 0xff0000, 1, 100 );
@@ -2981,6 +2981,20 @@ export class MeshPhongMaterial extends Material {
     metal: boolean;
 
     setValues(parameters: MeshPhongMaterialParameters): void;
+}
+
+export interface MeshToonMaterialParameters extends MeshPhongMaterialParameters {
+    gradientMap? : Texture;
+    isMeshToonMaterial? : boolean;
+    defines?: object;
+}
+
+export class MeshToonMaterial extends MeshPhongMaterial {
+    constructor(parameters?: MeshToonMaterialParameters);
+    gradientMap : Texture;
+    isMeshToonMaterial : boolean;
+    defines : object;
+    setValues(parameters: MeshToonMaterialParameters): void;
 }
 
 export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialParameters {
@@ -5230,6 +5244,7 @@ export class SkinnedMesh extends Mesh {
     constructor(geometry?: Geometry|BufferGeometry, material?: MeshLambertMaterial, useVertexTexture?: boolean);
     constructor(geometry?: Geometry|BufferGeometry, material?: MeshNormalMaterial, useVertexTexture?: boolean);
     constructor(geometry?: Geometry|BufferGeometry, material?: MeshPhongMaterial, useVertexTexture?: boolean);
+    constructor(geometry?: Geometry|BufferGeometry, material?: MeshToonMaterial, useVertexTexture?: boolean);
     constructor(geometry?: Geometry|BufferGeometry, material?: ShaderMaterial, useVertexTexture?: boolean);
 
     bindMode: string;
